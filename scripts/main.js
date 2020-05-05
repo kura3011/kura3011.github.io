@@ -187,9 +187,9 @@ function populateTableEntry(trainee) {
       }
     </div>
     <div class="table__entry-text">
-      <span class="name"><strong>${trainee.name_hangul}</strong></span>
+      <span class="name"><strong>${trainee.name_romanized}</strong></span>
       <span class="hangul"></span>
-      <span class="companyandyear">${trainee.company.toUpperCase()} </span>
+      <span class="companyandyear"> </span>
     </div>
   </div>`;
   return tableEntry;
@@ -260,7 +260,7 @@ function populateRankingEntry(trainee, currRank) {
       }
     </div>
     <div class="ranking__row-text">
-      <div class="name"><strong>${trainee.name_hangul}</strong></div>
+      <div class="name"><strong>${trainee.name_romanized}</strong></div>
       <div class="company"></div>
     </div>
   </div>`;
