@@ -193,8 +193,7 @@ function populateTableEntry(trainee) {
     <div class="table__entry-text">
       <span class="name"><strong>${trainee.name_romanized}</strong></span>
       <span class="hangul"></span>
-      <span class="companyandyear">${trainee.company.toUpperCase()} •
-      ${trainee.birthyear}</span>
+      <span class="companyandyear"></span>
     </div>
   </div>`;
   return tableEntry;
