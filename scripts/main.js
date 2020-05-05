@@ -90,7 +90,7 @@ function convertCSVArrayToTraineeData(csvArrays) {
     trainee.top12 = traineeArray[6] === 't'; // sets trainee to top 12 if 't' appears in 6th column
     trainee.id = parseInt(traineeArray[7]) - 1; // trainee id is the original ordering of the trainees in the first csv
     trainee.image =
-      trainee.name_romanized.replace(" ", "").replace("-", "") + ".jpg";
+      trainee.name_romanized.replace(" ", "").replace(" ", "").replace(" ", "").replace("-", "") + ".jpg";
     return trainee;
   });
   filteredTrainees = trainees;
@@ -192,7 +192,7 @@ function populateTableEntry(trainee) {
     </div>
     <div class="table__entry-text">
       <span class="name"><strong>${trainee.name_romanized}</strong></span>
-      <span class="hangul">(${trainee.name_hangul})</span>
+      <span class="hangul"></span>
       <span class="companyandyear">${trainee.company.toUpperCase()} •
       ${trainee.birthyear}</span>
     </div>
