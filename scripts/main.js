@@ -76,9 +76,13 @@ function convertCSVArrayToTraineeData(csvArrays) {
   trainees = csvArrays.map(function(traineeArray, index) {
     trainee = {};
     trainee.name_romanized = traineeArray[0];
-
+    if (traineeArray[2] === "-") {
+      // trainee only has hangul
+      trainee.name_hangul = traineeArray[1];
+    } else {
+      trainee.name_japanese = traineeArray[1];
       trainee.name_hangul = traineeArray[2];
-
+    }
     trainee.company = traineeArray[3];
     trainee.grade = traineeArray[4];
     trainee.birthyear = traineeArray[5];
@@ -86,7 +90,7 @@ function convertCSVArrayToTraineeData(csvArrays) {
     trainee.top12 = traineeArray[6] === 't'; // sets trainee to top 12 if 't' appears in 6th column
     trainee.id = parseInt(traineeArray[7]) - 1; // trainee id is the original ordering of the trainees in the first csv
     trainee.image =
-      trainee.name_romanized.replace(/\s+/g, '').replace(/\s+/g, '').replace(/\s+/g, '').replace("-", "") + ".jpg";
+      trainee.name_romanized.replace(" ", "").replace("-", "") + ".jpg";
     return trainee;
   });
   filteredTrainees = trainees;
@@ -188,8 +192,9 @@ function populateTableEntry(trainee) {
     </div>
     <div class="table__entry-text">
       <span class="name"><strong>${trainee.name_romanized}</strong></span>
-      <span class="hangul"></span>
-      <span class="companyandyear"></span>
+      <span class="hangul">(${trainee.name_hangul})</span>
+      <span class="companyandyear">${trainee.company.toUpperCase()} •
+      ${trainee.birthyear}</span>
     </div>
   </div>`;
   return tableEntry;
@@ -261,7 +266,7 @@ function populateRankingEntry(trainee, currRank) {
     </div>
     <div class="ranking__row-text">
       <div class="name"><strong>${trainee.name_romanized}</strong></div>
-      <div class="company"></div>
+      <div class="company">${modifiedCompany}</div>
     </div>
   </div>`;
   return rankingEntry;
@@ -315,7 +320,27 @@ function swapTrainees(index1, index2) {
 // all of it should be lower case
 const alternateRomanizations = {
   'heo yunjin': ['heo yoonjin', 'huh yoonjin', 'huh yunjin'],
-
+  'go yujin': ['ko yoojin', 'ko yujin', 'go yoojin'],
+  'kim yubin': ['kim yoobin'],
+  'lee yoojun': ['lee yujeong'],
+  'shin suhyun': ['shin soohyun', 'shin soohyeon', 'shin suhyeon'],
+  'jo ahyoung': ['cho ahyoung', 'cho ahyeong'],
+  'yu minyoung': ['yoo minyeong', 'yu minyeong', 'yoo minyoung'],
+  'park haeyoon': ['park haeyun'],
+  'park jinhee': ['jinny park'],
+  'jo sarang': ['cho sarang'],
+  'park chanju': ['park chanjoo'],
+  'lee gaeun': ['lee kaeun'],
+  'na goeun': ['na koeun'],
+  'ahn yujin': ['ahn yoojin'],
+  'jo gahyun': ['cho gahyun', 'jo kahyun', 'cho kahyun', 'jo kahyeon', 'cho kahyeon'],
+  'jo yuri': ['cho yuri'],
+  'yoon haesol': ['yun haesol'],
+  'kim minju': ['kim minjoo'],
+  'lee seunghyun': ['lee seunghyeon'],
+  'jo yeongin': ['cho yeongin', 'cho youngin', 'jo youngin'],
+  'kim suyun': ['kim sooyoon'],
+  'kim sihyun': ['kim shihyun', 'kim sihyeon']
 };
 
 // uses the current filter text to create a subset of trainees with matching info
